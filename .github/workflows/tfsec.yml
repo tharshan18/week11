@@ -1,0 +1,19 @@
+name: tfsec scan
+
+on:
+  push:
+    branches:
+      - prod
+      - dev
+      - staging
+
+jobs:
+  tfsec:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run tfsec
+        uses: aquasecurity/tfsec-action@v1.0.0
