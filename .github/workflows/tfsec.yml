@@ -10,7 +10,7 @@ on:
 
 jobs:
   tfsec:
-    name: Run tfsec sarif report
+    name: Run tfsec and upload SARIF
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -18,17 +18,16 @@ jobs:
       security-events: write
 
     steps:
-      - name: Checkout repo
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install tfsec
-        run: |
-          curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
+      - name: Run tfsec with SARIF output
+        uses: aquasecurity/tfsec-action@v1.0.0
+        with:
+          format: sarif
+          output: tfsec.sarif
 
-      - name: Run tfsec and generate SARIF
-        run: tfsec . --format sarif --out tfsec.sarif
-
-      - name: Upload SARIF file
+      - name: Upload tfsec SARIF to GitHub
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: tfsec.sarif
