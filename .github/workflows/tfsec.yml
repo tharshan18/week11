@@ -21,12 +21,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Run tfsec with SARIF output
-        uses: aquasecurity/tfsec-sarif-action@v1
-        with:
-          sarif_file: tfsec.sarif
-
-      - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: tfsec.sarif
+      - name: Install tfsec
+        run: |
+          wget https://github.com/aquasecurity/tfsec/releases/latest/download/tfsec-l
