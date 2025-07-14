@@ -4,12 +4,12 @@ on:
   push:
     branches:
       - prod
-      - dev
       - staging
+      - dev
 
 jobs:
   tfsec:
-    name: tfsec
+    name: tfsec  # This is the status check name
     runs-on: ubuntu-latest
 
     steps:
@@ -18,3 +18,7 @@ jobs:
 
       - name: Run tfsec
         uses: aquasecurity/tfsec-action@v1.0.0
+
+      - name: Report status
+        if: ${{ always() }}
+        run: echo "::notice ::tfsec scan complete"
