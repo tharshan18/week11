@@ -15,8 +15,8 @@ resource "aws_security_group" "web_sg" {
   }
 
   egress {
-  from_port   = 0
-  to_port     = 0
+  from_port   = 443
+  to_port     = 443
   protocol    = "-1"
   cidr_blocks = ["35.182.0.0/16"]
   description = "Allow all outbound traffic"
