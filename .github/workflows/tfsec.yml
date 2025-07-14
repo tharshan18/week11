@@ -2,11 +2,11 @@ name: tfsec
 
 on:
   push:
-    branches: [ "prod", "dev", "staging" ]
+    branches: [ "dev", "staging", "prod" ]
   pull_request:
     branches: [ "prod" ]
   schedule:
-    - cron: '35 8 * * 0'  # Weekly scan on Sundays at 8:35 UTC
+    - cron: '35 8 * * 0'  # Weekly scan on Sundays at 08:35 UTC
 
 jobs:
   tfsec:
@@ -22,12 +22,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install tfsec
-        run: |
-          curl -sSL https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
-
-      - name: Run tfsec with SARIF output
-        run: tfsec . --format sarif --out tfsec.sarif || true
+      - name: Run tfsec and generate SARIF report
+        uses: aquasecurity/tfsec-sarif-action@v1.0.0
+        with:
+          sarif_file: tfsec.sarif
 
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3
