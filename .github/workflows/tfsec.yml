@@ -2,7 +2,7 @@ name: tfsec
 
 on:
   push:
-    branches: [ "dev", "staging", "prod" ]
+    branches: [ "prod", "dev", "staging" ]
   pull_request:
     branches: [ "prod" ]
   schedule:
