@@ -23,4 +23,8 @@ jobs:
 
       - name: Install tfsec
         run: |
-          wget https://github.com/aquasecurity/tfsec/releases/latest/download/tfsec-l
+          wget https://github.com/aquasecurity/tfsec/releases/latest/download/tfsec-linux-amd64 -O tfsec
+          chmod +x tfsec
+          sudo mv tfsec /usr/local/bin/
+
+      - name: Run tfsec with
